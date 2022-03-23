@@ -6,12 +6,12 @@ const createCollege = async function(req, res){
         const CollegeDetails = req.body
         const name = CollegeDetails.name
         const fullName = CollegeDetails.fullName
-        // const logoLink = internDetails.logoLink
+        const logoLink = internDetails.logoLink
         if (Object.entries(CollegeDetails).length === 0) {
             res.status(400).send({ status: false, msg: "please provide college details." })}
         if (!name){return res.status(400).send({status:false, msg:"please provide the name of college."})}
         if (!fullName){return res.status(400).send({status:false, msg:"please provide the full name of the college."})}
-        // if (!logoLink){return res.status(400).send({status:false, msg:"please provide the logo link."})}
+        if (!logoLink){return res.status(400).send({status:false, msg:"please provide the logo link."})}
         const saveDetails = await collegeModel.create(CollegeDetails)
         res.status(201).send({status:true, msg:"Collage Details stored successfully", data:saveDetails})
     }
@@ -43,7 +43,7 @@ const createIntern = async function(req, res){
         res.status(201).send({status:true, msg:"Intern Details stored successfully", data:saveDetails})
     }
     catch(err){return res.status(500).send({status:false, msg:err.message})}
-}                      
+}               
 
 const getCollegeDetails = async function(req, res){
     try{
@@ -59,8 +59,10 @@ const getCollegeDetails = async function(req, res){
         const finalCollegeData = {
             name : findCollege.name,
             fullName : findCollege.fullName,
+            logoLink : findCollege.logoLink,
             interests : allInterns
         }
+        console.log(finalCollegeData)
         res.status(200).send({status:true, data:finalCollegeData})
     }
     catch(err){return res.status(500).send({status:false, msg:err.message})}
@@ -68,4 +70,5 @@ const getCollegeDetails = async function(req, res){
 
 module.exports.createIntern = createIntern;
 module.exports.createCollege = createCollege;
-m
+module.exports.getCollegeDetails = getCollegeDetails;
+
