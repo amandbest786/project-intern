@@ -6,7 +6,7 @@ const createCollege = async function(req, res){
         const CollegeDetails = req.body
         const name = CollegeDetails.name
         const fullName = CollegeDetails.fullName
-        const logoLink = internDetails.logoLink
+        const logoLink = CollegeDetails.logoLink
         if (Object.entries(CollegeDetails).length === 0) {
             res.status(400).send({ status: false, msg: "please provide college details." })}
         if (!name){return res.status(400).send({status:false, msg:"please provide the name of college."})}
@@ -62,7 +62,6 @@ const getCollegeDetails = async function(req, res){
             logoLink : findCollege.logoLink,
             interests : allInterns
         }
-        console.log(finalCollegeData)
         res.status(200).send({status:true, data:finalCollegeData})
     }
     catch(err){return res.status(500).send({status:false, msg:err.message})}
